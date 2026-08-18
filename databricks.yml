@@ -1,0 +1,45 @@
+###########################################################################################
+# 08 - Deploying a DAB to Multiple Environments (Free Edition, local CLI, manual catalogs)
+###########################################################################################
+
+bundle:
+  name: demo08_bundle
+
+include:
+  - "./resources/demo_08_job.job.yml"
+
+variables:
+  catalog_dev:
+    description: Development catalog for the project.
+    default: dab_lab_dev     # <-- must match the catalog you create manually (see SETUP.sql)
+
+  catalog_prod:
+    description: Production catalog for the project.
+    default: dab_lab_prod    # <-- must match the catalog you create manually (see SETUP.sql)
+
+  target_catalog:
+    description: Catalog used by the job for the current target. Overridden per-target below.
+    default: ${var.catalog_dev}
+
+  raw_data_path:
+    description: Path to the source CSV files to ingest for the current target.
+    default: /Volumes/${var.target_catalog}/default/health
+
+targets:
+
+  development:
+    mode: development
+    default: true
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    # target_catalog / raw_data_path stay at their defaults (dev) for this target.
+
+  production:
+    mode: production
+    workspace:
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      target_catalog: ${var.catalog_prod}
+      # raw_data_path is NOT overridden here: because it's defined as
+      # /Volumes/${var.target_catalog}/default/health, it re-resolves
+      # automatically once target_catalog changes.

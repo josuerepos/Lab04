@@ -1,0 +1,26 @@
+############################################################################
+# RESOURCES - demo_08_job
+############################################################################
+resources:
+  jobs:
+    demo_08_job:
+      name: ${bundle.target}_demo_08_dab_${workspace.current_user.userName}
+      tasks:
+        - task_key: create_bronze_table
+          notebook_task:
+            notebook_path: ../src/create_bronze_table.py
+            source: WORKSPACE
+        - task_key: create_silver_table
+          depends_on:
+            - task_key: create_bronze_table
+          notebook_task:
+            notebook_path: ../src/create_silver_table.py
+            source: WORKSPACE
+      # No existing_cluster_id -> Serverless (Free Edition only has serverless anyway)
+      parameters:
+        - name: display_target
+          default: ${bundle.target}
+        - name: catalog_name
+          default: ${var.target_catalog}
+        - name: raw_data_path
+          default: ${var.raw_data_path}
