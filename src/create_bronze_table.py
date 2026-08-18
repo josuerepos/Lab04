@@ -8,6 +8,7 @@ spark.sql(f'USE CATALOG {my_catalog}')
 print(f'Using the {my_catalog} catalog.')
 print(f'Deploying as the {target} pipeline.')
 print(f'Reading raw data from: {raw_data_path}')
+print('Deployment triggered through GitHub Actions - Lab 04.')
 
 # COMMAND ----------
 
