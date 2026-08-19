@@ -33,6 +33,7 @@ jobs:
           DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
           DATABRICKS_BUNDLE_ENV: development
+          DATABRICKS_AUTH_TYPE: oauth-m2m
 
   deploy:
     name: "Deploy bundle"
@@ -49,6 +50,7 @@ jobs:
           DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
           DATABRICKS_BUNDLE_ENV: development
+          DATABRICKS_AUTH_TYPE: oauth-m2m
 
   run_pipeline_job:
     name: "Run pipeline job"
@@ -68,3 +70,4 @@ jobs:
           DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
           DATABRICKS_BUNDLE_ENV: development
+          DATABRICKS_AUTH_TYPE: oauth-m2m
